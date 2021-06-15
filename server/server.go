@@ -71,6 +71,7 @@ func startConnection(connection *Connection) {
 
 func StartServer() {
 
+	// To be updated later for complex storage based on Protobuf.
 	database = make(map[string]interface{})
 
 	connectString := utils.ReadServerConfig()
