@@ -28,9 +28,20 @@ docker run -p 9876:9876 shreybatra/crankdb
 - Download application - `go get github.com/shreybatra/crankdb`
 - Run server with command - `crankdb`
 
+## Server configuration
+You can provide environment variables HOSTS and PORT to customize your server network binding.
+
+Defaults - 
+- HOSTS=localhost (0.0.0.0 for the docker image)
+- PORT=9876
+
 ## Querying and connecting to CrankDB
-- Download [crank-cli](https://github.com/shreybatra/crank)
-- Check [docs](https://github.com/shreybatra/crank#query-language) for query language.
+
+As this is a very early release you can use 2 ways to interact with the database -
+
+- [Crank CLI](https://github.com/shreybatra/crank)
+- [Cranky - Python Driver for CrankDB](https://github.com/shreybatra/Cranky)
+
 
 ## Steps to build
 - Clone the repo and change directory to project root folder.
