@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "cql/commons.proto";
+import "cql/find_command.proto";
+import "cql/get_command.proto";
+import "cql/set_command.proto";
+
+package server;
+
+option go_package = "github.com/shreybatra/crankdb/server";
+
+service CrankDB {
+    rpc Set(commands.DataPacket) returns (commands.SetCommandResponse);
+    rpc Get(commands.GetCommandRequest) returns (commands.DataPacket);
+    rpc Find(commands.FindCommandRequest) returns (stream commands.DataPacket);
+}
