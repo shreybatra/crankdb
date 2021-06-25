@@ -111,7 +111,11 @@ func searchStage(query interface{}, resultStream chan *dbObject) {
 		if object.valType != cql.DataType_JSON {
 			continue
 		}
-		objValue := object.value.(map[string]interface{})
+		objValue, err := object.value.(map[string]interface{})
+
+		if !err {
+			continue
+		}
 
 		ok := true
 		for key, value := range queryObj {

@@ -2,20 +2,17 @@
 
 CrankDB is an ultra fast and very lightweight Key Value based Document Store.
 
+### Latest version - v0.1.0-beta.1
+
 ## Requirements
 - Golang 1.16
 
 ## Steps to deploy
 
-#### Using docker image (Recommended)
-```
-docker run -p 9876:9876 shreybatra/crankdb
-```
-
-#### Download binary executable
-- Download executable -
-    - [Linux](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_0_linux.tar)
-    - [MacOs](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_0_macos_darwin.tar)
+#### (Option 1) Download binary executable
+- Download executable (v0.1.0-beta.1) -
+    - [Linux](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_1_linux.tar)
+    - [MacOs](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_1_macos_darwin.tar)
 - Extract tar and start server -
     ```
     cd Downloads
@@ -24,8 +21,13 @@ docker run -p 9876:9876 shreybatra/crankdb
     ```
 - (MacOS) You might need to allow macos to run the file via Settings and Privacy.
 
-#### Using go get command
-- Download application - `go get github.com/shreybatra/crankdb`
+#### (Option 2) Using docker image (Recommended)
+```
+docker run -p 9876:9876 shreybatra/crankdb
+```
+
+#### (Option 3) Using go get command
+- Download application - `go install github.com/shreybatra/crankdb@latest`
 - Run server with command - `crankdb`
 
 ## Server configuration
@@ -37,10 +39,14 @@ Defaults -
 
 ## Querying and connecting to CrankDB
 
-As this is a very early release you can use 2 ways to interact with the database -
+As of now, we can query and use the database via the crank-cli or SDKs in the following languages - 
 
-- [Crank CLI](https://github.com/shreybatra/crank)
-- [Cranky - Python Driver for CrankDB](https://github.com/shreybatra/Cranky)
+| Language                | SDK/Tool    | Latest Version |
+|-------------------------|-------------|----------------|
+| CLI (command line tool) | [Crank CLI](https://github.com/shreybatra/crank) | v0.1.0-beta.1  |
+| Golang                  | [Gocrank](https://github.com/shreybatra/gocrank)   | v0.1.0-beta.1  |
+| Python                  | [Cranky](https://github.com/shreybatra/Cranky)    | 0.1.0b1        |
+
 
 
 ## Steps to build
