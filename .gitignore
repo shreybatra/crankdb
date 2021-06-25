@@ -20,7 +20,3 @@ pkg/
 
 # ENV files
 .env
-
-# GRPC output files
-*.pb.go
-
