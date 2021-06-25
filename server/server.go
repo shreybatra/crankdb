@@ -4,6 +4,7 @@ import (
 	context "context"
 	"encoding/json"
 	"errors"
+	"log"
 
 	cql "github.com/shreybatra/crankdb/cql"
 )
@@ -41,6 +42,7 @@ func (s *CrankServer) Set(ctx context.Context, request *cql.DataPacket) (*cql.Se
 		return &cql.SetCommandResponse{Success: false}, errors.New("no value passed")
 	}
 
+	log.Printf("key: %v , valType: %v , value: %v", key, valueType, value)
 	Db.Add(key, value, valueType)
 
 	return &cql.SetCommandResponse{Success: true}, nil
@@ -55,10 +57,10 @@ func (s *CrankServer) Get(ctx context.Context, request *cql.GetCommandRequest) (
 		return &cql.DataPacket{}, errors.New("key not found")
 	}
 
-	response := &cql.DataPacket{}
-
 	objType := obj.valType
 	objValue := obj.value
+
+	response := &cql.DataPacket{DataType: objType}
 
 	switch objType {
 	case cql.DataType_BOOL:
