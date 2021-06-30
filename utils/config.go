@@ -1,8 +1,13 @@
 package utils
 
-import "os"
+import (
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 func ReadServerConfig() (connectString string) {
+	godotenv.Load()
 	port, ok := os.LookupEnv("PORT")
 	if !ok {
 		port = "9876"
