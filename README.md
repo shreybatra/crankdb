@@ -2,7 +2,7 @@
 
 CrankDB is an ultra fast and very lightweight Key Value based Document Store.
 
-### Latest version - v0.1.0-beta.1
+### Latest version - v0.1.0-beta.2
 
 ## Requirements
 - Golang 1.16
@@ -11,8 +11,8 @@ CrankDB is an ultra fast and very lightweight Key Value based Document Store.
 
 #### (Option 1) Download binary executable
 - Download executable (v0.1.0-beta.1) -
-    - [Linux](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_1_linux.tar)
-    - [MacOs](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_1_macos_darwin.tar)
+    - [Linux](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_2_linux.tar)
+    - [MacOs](https://crankdb.blob.core.windows.net/crankdb/crankdb_v0_1-beta_2_darwin.tar)
 - Extract tar and start server -
     ```
     cd Downloads

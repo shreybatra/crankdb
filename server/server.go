@@ -3,10 +3,11 @@ package server
 import (
 	context "context"
 	"encoding/json"
-	"errors"
 	"log"
 
 	cql "github.com/shreybatra/crankdb/cql"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type CrankServer struct {
@@ -39,7 +40,7 @@ func (s *CrankServer) Set(ctx context.Context, request *cql.DataPacket) (*cql.Se
 	case cql.DataType_JSON:
 		json.Unmarshal(request.GetJsonVal(), &value)
 	default:
-		return &cql.SetCommandResponse{Success: false}, errors.New("no value passed")
+		return &cql.SetCommandResponse{Success: false}, status.Error(codes.InvalidArgument, "no value passed")
 	}
 
 	log.Printf("key: %v , valType: %v , value: %v", key, valueType, value)
@@ -54,7 +55,7 @@ func (s *CrankServer) Get(ctx context.Context, request *cql.GetCommandRequest) (
 	obj, ok := Db.Retrieve(key)
 
 	if !ok {
-		return &cql.DataPacket{}, errors.New("key not found")
+		return &cql.DataPacket{}, status.Error(codes.NotFound, "key not found")
 	}
 
 	objType := obj.valType
@@ -82,52 +83,4 @@ func (s *CrankServer) Get(ctx context.Context, request *cql.GetCommandRequest) (
 	}
 
 	return response, nil
-}
-
-func (s *CrankServer) Find(request *cql.FindCommandRequest, stream CrankDB_FindServer) error {
-
-	var queryObj interface{}
-	json.Unmarshal(request.GetQuery(), &queryObj)
-
-	resultStream := make(chan *dbObject)
-
-	go searchStage(queryObj, resultStream)
-
-	for result := range resultStream {
-		jsonVal, _ := json.Marshal(result.value)
-		newPacket := &cql.DataPacket{Key: result.key, JsonVal: jsonVal, DataType: cql.DataType_JSON}
-		if err := stream.Send(newPacket); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func searchStage(query interface{}, resultStream chan *dbObject) {
-	queryObj := query.(map[string]interface{})
-
-	for _, object := range Db.store {
-		if object.valType != cql.DataType_JSON {
-			continue
-		}
-		objValue, err := object.value.(map[string]interface{})
-
-		if !err {
-			continue
-		}
-
-		ok := true
-		for key, value := range queryObj {
-			if objValue[key] != value {
-				ok = false
-				break
-			}
-		}
-
-		if ok {
-			resultStream <- object
-		}
-	}
-	close(resultStream)
 }
