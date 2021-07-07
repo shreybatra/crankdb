@@ -166,7 +166,10 @@ func optimiseQuery(queryObj *map[string]interface{}) (*map[string]interface{}, e
 			continue
 		case map[string]interface{}:
 			// update "in" operator list to map[interface{}]interface{}
-			arrList := value["in"]
+			arrList, found := value["in"]
+			if !found {
+				continue
+			}
 			arrMap := make(map[interface{}]struct{})
 			exists := struct{}{}
 			for _, elem := range arrList.([]interface{}) {
