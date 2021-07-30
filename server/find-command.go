@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/shreybatra/crankdb/cql"
+	"github.com/ahsanbarkati/crankdb/cql"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -184,69 +184,69 @@ func optimiseQuery(queryObj *map[string]interface{}) (*map[string]interface{}, e
 	return queryObj, nil
 }
 
-func searchStage(query interface{}, resultStream chan *dbObject, done chan bool, errorStream chan *error) {
-	queryObj := query.(map[string]interface{})
+// func searchStage(query interface{}, resultStream chan *dbObject, done chan bool, errorStream chan *error) {
+// 	queryObj := query.(map[string]interface{})
 
-	_, err := optimiseQuery(&queryObj)
+// 	_, err := optimiseQuery(&queryObj)
 
-	if err != nil {
-		errorStream <- &err
-		close(resultStream)
-		close(errorStream)
-		close(done)
-	}
+// 	if err != nil {
+// 		errorStream <- &err
+// 		close(resultStream)
+// 		close(errorStream)
+// 		close(done)
+// 	}
 
-	// Collection scan
-	for _, dbobject := range Db.store {
+// 	// Collection scan
+// 	for _, dbobject := range Db.store {
 
-		// ignore non JSON values.
-		if dbobject.valType != cql.DataType_JSON {
-			continue
-		}
+// 		// ignore non JSON values.
+// 		if dbobject.valType != cql.DataType_JSON {
+// 			continue
+// 		}
 
-		dbObjValue, er := dbobject.value.(map[string]interface{})
+// 		dbObjValue, er := dbobject.value.(map[string]interface{})
 
-		// Ignoring array based JSON values.
-		if !er {
-			continue
-		}
+// 		// Ignoring array based JSON values.
+// 		if !er {
+// 			continue
+// 		}
 
-		ok := true
-		var err error = nil
+// 		ok := true
+// 		var err error = nil
 
-		for qkey, qvalue := range queryObj {
+// 		for qkey, qvalue := range queryObj {
 
-			objValue := dbObjValue[qkey]
+// 			objValue := dbObjValue[qkey]
 
-			switch qvalue := qvalue.(type) {
-			case float64, string, bool, nil:
-				ok, err = eq(qkey, qvalue, objValue)
-			case map[string]interface{}:
-				ok, err = handleOperatorQuery(qkey, qvalue, objValue)
-			default:
-				ok, err = false, status.Errorf(codes.InvalidArgument, "Unsupported query value - %v", qvalue)
-			}
+// 			switch qvalue := qvalue.(type) {
+// 			case float64, string, bool, nil:
+// 				ok, err = eq(qkey, qvalue, objValue)
+// 			case map[string]interface{}:
+// 				ok, err = handleOperatorQuery(qkey, qvalue, objValue)
+// 			default:
+// 				ok, err = false, status.Errorf(codes.InvalidArgument, "Unsupported query value - %v", qvalue)
+// 			}
 
-			if !ok {
-				break
-			}
-		}
+// 			if !ok {
+// 				break
+// 			}
+// 		}
 
-		if err != nil {
-			errorStream <- &err
-			close(resultStream)
-			close(errorStream)
-			close(done)
-			return
-		}
+// 		if err != nil {
+// 			errorStream <- &err
+// 			close(resultStream)
+// 			close(errorStream)
+// 			close(done)
+// 			return
+// 		}
 
-		if ok {
-			resultStream <- dbobject
-		}
-	}
-	done <- true
-	close(resultStream)
-}
+// 		if ok {
+// 			resultStream <- dbobject
+// 		}
+// 	}
+// 	done <- true
+// 	close(resultStream)
+// }
 
 func (s *CrankServer) Find(request *cql.FindCommandRequest, stream CrankDB_FindServer) error {
 	/* Method call for Find command. Returns streaming output to client. */
@@ -258,7 +258,7 @@ func (s *CrankServer) Find(request *cql.FindCommandRequest, stream CrankDB_FindS
 	done := make(chan bool)
 	errorStream := make(chan *error)
 
-	go searchStage(queryObj, resultStream, done, errorStream)
+	// go searchStage(queryObj, resultStream, done, errorStream)
 
 	for {
 		select {

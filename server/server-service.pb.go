@@ -7,7 +7,7 @@
 package server
 
 import (
-	cql "github.com/shreybatra/crankdb/cql"
+	cql "github.com/ahsanbarkati/crankdb/cql"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
