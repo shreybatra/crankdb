@@ -1,4 +1,4 @@
-module github.com/shreybatra/crankdb
+module github.com/ahsanbarkati/crankdb
 
 go 1.16
 

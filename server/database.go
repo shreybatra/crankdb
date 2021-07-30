@@ -3,7 +3,7 @@ package server
 import (
 	"sync"
 
-	"github.com/shreybatra/crankdb/cql"
+	"github.com/ahsanbarkati/crankdb/cql"
 )
 
 type dbObject struct {

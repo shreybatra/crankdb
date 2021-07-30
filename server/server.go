@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 
-	cql "github.com/shreybatra/crankdb/cql"
+	cql "github.com/ahsanbarkati/crankdb/cql"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

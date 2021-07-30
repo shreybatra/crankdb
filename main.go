@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/shreybatra/crankdb/server"
-	"github.com/shreybatra/crankdb/utils"
+	"github.com/ahsanbarkati/crankdb/server"
+	"github.com/ahsanbarkati/crankdb/utils"
 	"google.golang.org/grpc"
 )
 

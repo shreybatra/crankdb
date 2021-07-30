@@ -23,11 +23,11 @@ CrankDB is an ultra fast and very lightweight Key Value based Document Store.
 
 #### (Option 2) Using docker image (Recommended)
 ```
-docker run -p 9876:9876 shreybatra/crankdb
+docker run -p 9876:9876 ahsanbarkati/crankdb
 ```
 
 #### (Option 3) Using go get command
-- Download application - `go install github.com/shreybatra/crankdb@latest`
+- Download application - `go install github.com/ahsanbarkati/crankdb@latest`
 - Run server with command - `crankdb`
 
 ## Server configuration
