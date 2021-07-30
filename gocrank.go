@@ -1,4 +1,4 @@
-package gocrank
+package main
 
 import (
 	"context"
@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 
 	cql "github.com/ahsanbarkati/crankdb/cql"
 	client "github.com/ahsanbarkati/crankdb/server"
@@ -18,18 +17,15 @@ type GoCrank struct {
 	_client client.CrankDBClient
 }
 
-func NewCrankConnection(hostport string) *GoCrank {
+func NewCrankConnection(hostport string) (*GoCrank, error) {
 	conn, err := grpc.Dial(hostport, grpc.WithInsecure(), grpc.WithBlock())
-
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		return nil, err
 	}
 
 	client := client.NewCrankDBClient(conn)
-
 	newObj := &GoCrank{_conn: conn, _client: client}
-
-	return newObj
+	return newObj, nil
 }
 
 func (gc *GoCrank) Set(key string, value interface{}) (*cql.SetCommandResponse, error) {

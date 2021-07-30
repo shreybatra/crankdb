@@ -4,6 +4,7 @@ package server
 
 import (
 	context "context"
+
 	cql "github.com/ahsanbarkati/crankdb/cql"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

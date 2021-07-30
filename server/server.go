@@ -3,7 +3,6 @@ package server
 import (
 	context "context"
 	"encoding/json"
-	"log"
 
 	cql "github.com/ahsanbarkati/crankdb/cql"
 	"google.golang.org/grpc/codes"
@@ -43,7 +42,7 @@ func (s *CrankServer) Set(ctx context.Context, request *cql.DataPacket) (*cql.Se
 		return &cql.SetCommandResponse{Success: false}, status.Error(codes.InvalidArgument, "no value passed")
 	}
 
-	log.Printf("key: %v , valType: %v , value: %v", key, valueType, value)
+	// log.Printf("key: %v , valType: %v , value: %v", key, valueType, value)
 	Db.Add(key, value, valueType)
 
 	return &cql.SetCommandResponse{Success: true}, nil
